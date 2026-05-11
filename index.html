@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Placement Prediction System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Placement Readiness</p>
+            <h1>Student Placement Prediction System</h1>
+          </div>
+          <div class="status-pill" id="statusPill">Ready to predict</div>
+        </header>
+
+        <section class="layout-grid">
+          <form class="panel form-panel" id="predictionForm">
+            <div class="panel-header">
+              <div>
+                <h2>Student Profile</h2>
+                <p>Enter academic, skill, and readiness details.</p>
+              </div>
+              <button class="ghost-button" type="button" id="sampleButton" aria-label="Load sample student">
+                <span aria-hidden="true">↻</span>
+                Sample
+              </button>
+            </div>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>Student name</span>
+                <input id="studentName" name="studentName" type="text" value="Hemanth Reddy" required minlength="2" />
+              </label>
+
+              <label class="field">
+                <span>Internship experience</span>
+                <select id="internship" name="internship" required>
+                  <option value="none">No internship</option>
+                  <option value="one" selected>One internship</option>
+                  <option value="multiple">Multiple internships</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="score-section">
+              <div class="slider-field">
+                <div class="slider-label">
+                  <label for="cgpa">CGPA</label>
+                  <output id="cgpaValue" for="cgpa">8.2</output>
+                </div>
+                <input id="cgpa" name="cgpa" type="range" min="0" max="10" value="8.2" step="0.1" />
+              </div>
+
+              <div class="slider-field">
+                <div class="slider-label">
+                  <label for="coding">Coding skills</label>
+                  <output id="codingValue" for="coding">78</output>
+                </div>
+                <input id="coding" name="coding" type="range" min="0" max="100" value="78" step="1" />
+              </div>
+
+              <div class="slider-field">
+                <div class="slider-label">
+                  <label for="communication">Communication skills</label>
+                  <output id="communicationValue" for="communication">72</output>
+                </div>
+                <input id="communication" name="communication" type="range" min="0" max="100" value="72" step="1" />
+              </div>
+
+              <div class="slider-field">
+                <div class="slider-label">
+                  <label for="attendance">Attendance</label>
+                  <output id="attendanceValue" for="attendance">86%</output>
+                </div>
+                <input id="attendance" name="attendance" type="range" min="0" max="100" value="86" step="1" />
+              </div>
+            </div>
+
+            <div class="tabs" role="tablist" aria-label="Advanced add-ons">
+              <button class="tab-button active" type="button" data-tab="resume" role="tab" aria-selected="true">Resume analyzer</button>
+              <button class="tab-button" type="button" data-tab="interview" role="tab" aria-selected="false">Interview readiness</button>
+            </div>
+
+            <section class="addon-panel active" id="resumePanel" role="tabpanel">
+              <div class="check-grid">
+                <label><input type="checkbox" class="resume-check" value="15" checked /> Academic details</label>
+                <label><input type="checkbox" class="resume-check" value="15" checked /> Technical skills</label>
+                <label><input type="checkbox" class="resume-check" value="20" checked /> Projects</label>
+                <label><input type="checkbox" class="resume-check" value="15" checked /> Internship details</label>
+                <label><input type="checkbox" class="resume-check" value="10" /> Certifications</label>
+                <label><input type="checkbox" class="resume-check" value="10" checked /> Achievements</label>
+                <label><input type="checkbox" class="resume-check" value="10" checked /> Formatting quality</label>
+                <label><input type="checkbox" class="resume-check" value="5" checked /> Grammar clarity</label>
+              </div>
+            </section>
+
+            <section class="addon-panel" id="interviewPanel" role="tabpanel">
+              <div class="score-section compact">
+                <div class="slider-field">
+                  <div class="slider-label">
+                    <label for="technicalPrep">Technical prep</label>
+                    <output id="technicalPrepValue" for="technicalPrep">76</output>
+                  </div>
+                  <input id="technicalPrep" type="range" min="0" max="100" value="76" step="1" />
+                </div>
+                <div class="slider-field">
+                  <div class="slider-label">
+                    <label for="hrPrep">HR prep</label>
+                    <output id="hrPrepValue" for="hrPrep">68</output>
+                  </div>
+                  <input id="hrPrep" type="range" min="0" max="100" value="68" step="1" />
+                </div>
+                <div class="slider-field">
+                  <div class="slider-label">
+                    <label for="mockInterviews">Mock interviews</label>
+                    <output id="mockInterviewsValue" for="mockInterviews">62</output>
+                  </div>
+                  <input id="mockInterviews" type="range" min="0" max="100" value="62" step="1" />
+                </div>
+                <div class="slider-field">
+                  <div class="slider-label">
+                    <label for="confidence">Confidence</label>
+                    <output id="confidenceValue" for="confidence">70</output>
+                  </div>
+                  <input id="confidence" type="range" min="0" max="100" value="70" step="1" />
+                </div>
+              </div>
+            </section>
+
+            <div class="actions">
+              <button class="secondary-button" type="reset">Reset</button>
+            </div>
+          </form>
+
+          <section class="results-column">
+            <div class="panel result-panel">
+              <div class="result-heading">
+                <div>
+                  <p class="eyebrow">Prediction</p>
+                  <h2 id="predictionTitle">Likely to be placed</h2>
+                </div>
+                <div class="score-orb" id="placementScore">77%</div>
+              </div>
+              <div class="progress-track" aria-label="Placement probability">
+                <div class="progress-fill" id="placementBar"></div>
+              </div>
+              <p class="result-copy" id="resultCopy">
+                Hemanth Reddy shows strong placement readiness with balanced academic, skill, and resume indicators.
+              </p>
+            </div>
+
+            <div class="metrics-grid">
+              <article class="metric-card">
+                <span>Resume score</span>
+                <strong id="resumeScore">85%</strong>
+                <p id="resumeCategory">Excellent</p>
+              </article>
+              <article class="metric-card">
+                <span>Interview readiness</span>
+                <strong id="interviewScore">69%</strong>
+                <p id="interviewCategory">Almost ready</p>
+              </article>
+            </div>
+
+            <div class="panel breakdown-panel">
+              <div class="panel-header small">
+                <div>
+                  <h2>Factor Breakdown</h2>
+                  <p>Weighted placement signals</p>
+                </div>
+              </div>
+              <div class="breakdown-list" id="breakdownList"></div>
+            </div>
+
+            <div class="panel recommendations-panel">
+              <div class="panel-header small">
+                <div>
+                  <h2>Recommendations</h2>
+                  <p>Next actions based on weak areas</p>
+                </div>
+              </div>
+              <ul id="recommendations"></ul>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
